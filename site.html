@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<p class="subtitulo">
+    Mapeamento de descarte de resíduos 
+</p>
+
+<style>
+
+.subtitulo {
+    font-size: 16px;
+    color: #4f7c63;
+    background: #eafff1;
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: #f4fff7;
+    color: #355f4a;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background: #dff7e4;
+    border-bottom: 3px solid #b8eec9;
+}
+
+.menu-label {
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100%;
+    background: #ecfff1;
+    box-shadow: 5px 0 20px rgba(0,0,0,0.1);
+    padding-top: 60px;
+    transition: 0.3s;
+    z-index: 20;
+}
+
+.sidebar a {
+    display: block;
+    padding: 18px;
+    text-decoration: none;
+    color: #2f8f5b;
+    border-radius: 12px;
+    margin: 5px;
+}
+
+.sidebar a:hover {
+    background: #c9f7d8;
+}
+
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.2);
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 10;
+}
+
+#menu-toggle:checked ~ .sidebar {
+    left: 0;
+}
+
+#menu-toggle:checked ~ .overlay {
+    display: block;
+}
+
+.page {
+    display: none;
+}
+
+#inicio {
+    display: block;
+}
+
+#inicio:target,
+#info:target,
+#mapa:target,
+#guia:target {
+    display: block;
+}
+
+body:has(#info:target) #inicio,
+body:has(#mapa:target) #inicio,
+body:has(#guia:target) #inicio {
+    display: none;
+}
+
+.hero {
+    position: relative;
+    padding: 100px 80px;
+    background: linear-gradient(120deg, #dff7e4, #f4fff7);
+    text-align: left;
+}
+
+.hero h1 {
+    font-size: 64px;
+    font-weight: 800;
+    color: #2f8f5b;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hero span {
+    color: #6edba5;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #555;
+    max-width: 500px;
+    margin-bottom: 30px;
+}
+
+.btn-hero {
+    background: linear-gradient(90deg, #2f8f5b, #6edba5);
+    color: white;
+    padding: 14px 26px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.btn-hero:hover {
+    background: #256f47;
+}
+
+.blob, .blob2 {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(30px);
+}
+
+.blob {
+    position: absolute;
+    right: 80px;
+    top: 50px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #6edba5, #b8f2d6);
+    border-radius: 50%;
+    filter: blur(60px);
+    z-index: 0;
+}
+
+.blob2 {
+    width: 200px;
+    height: 200px;
+    background: #b8f2d6;
+    top: 50px;
+    left: 80px;
+    animation: float 8s infinite ease-in-out;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(25px); }
+    100% { transform: translateY(0px); }
+}
+
+.info-central {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.info-central strong {
+    color: #2f8f5b;
+}
+
+.info-page {
+    padding: 30px 20px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border: 2px dashed #b8eec9;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    background: #f2fff6;
+}
+
+.mapa {
+    padding: 30px 20px;
+}
+
+.mapa select {
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    background: #dff7e4;
+    margin: 15px 0;
+}
+
+.resultados {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.box {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 15px;
+    border-left: 6px solid #a8e6cf;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.box strong {
+    color: #2f8f5b;
+}
+
+.mapa-box {
+    width: 100%;
+    height: 300px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #b8f2d6, #dff7e4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #2f8f5b;
+    font-size: 24px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 30;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background: #ffffff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.fechar {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.hero h1,
+.hero p,
+.btn-hero {
+    position: relative;
+    z-index: 1;
+}
+/* HERO COM IMAGEM */
+.guia-hero {
+    height: 400px;
+    background: url(eco.jpg) center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* CAMADA ESCURA PRA TEXTO FICAR LEGÍVEL */
+.overlay-hero {
+    background: rgba(0,0,0,0.4);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+}
+
+.overlay-hero h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.overlay-hero p {
+    font-size: 18px;
+}
+
+/* CONTEÚDO */
+.guia-conteudo {
+    background: #f4fff7;
+    padding: 80px;
+    text-align: center;
+}
+
+.guia-conteudo h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #2f8f5b;
+}
+
+/* GRID */
+.guia-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+/* CARD BONITO */
+.guia-card {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.guia-card:hover {
+    transform: translateY(-8px);
+}
+
+/* IMAGEM */
+.guia-card img {
+    width: 60px;
+    margin-bottom: 15px;
+}
+
+/* TEXTO */
+.guia-card h3 {
+    color: #2f8f5b;
+    margin-bottom: 10px;
+}
+
+.guia-card p {
+    color: #555;
+}
+.guia-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.guia-card {
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.icone {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<input type="checkbox" id="menu-toggle">
+
+<div class="sidebar">
+    <a href="#inicio">Início</a>
+    <a href="#info">Informações</a>
+    <a href="#mapa">Mapa</a>
+    <a href="#guia">Guia</a>
+</div>
+
+<label for="menu-toggle" class="overlay"></label>
+
+<header>
+    <label for="menu-toggle" class="menu-label">☰</label>
+    <h2>Menu</h2>
+    <div>🔍 ♻️</div>
+</header>
+
+<section id="inicio" class="page">
+    
+<div class="hero">
+
+    <h1>
+        Descarte consciente<br>
+        <span>de Resíduos</span>
+    </h1>
+
+    <p>
+        Descubra pontos de coleta em Lorena - SP e contribua para um futuro mais sustentável.
+    </p>
+
+    <a href="#mapa" class="btn-hero">Acessar mapa</a>
+
+    <div class="blob"></div>
+
+</div>
+
+<div class="info-central">
+    <p><strong>Informações importantes</strong></p>
+    <p>Contato da prefeitura</p>
+    <p>(12) 3185-3000</p>
+    <p>Av. Cap. Messías Ribeiro, 625 - Olaria, Lorena - SP, 12607-020</p>
+    <p>Green Footprint</p>
+</div>
+
+</section>
+
+<section id="info" class="page info-page">
+    <h2>Informações</h2>
+
+    <div class="card" onclick="abrirModal('uso')">Como usar o site?</div>
+    <div class="card" onclick="abrirModal('residuo')">Qual meu resíduo?</div>
+    <div class="card" onclick="abrirModal('pontos')">Todos os pontos de coleta</div>
+    <div class="card" onclick="abrirModal('sobre')">Sobre Green Footprint</div>
+</section>
+
+<section id="guia" class="page">
+
+<!-- HERO COM IMAGEM -->
+<div class="guia-hero">
+    <div class="overlay-hero">
+        <h1>Guia de descarte consciente</h1>
+        <p>Aprenda a separar corretamente seus resíduos e ajudar o meio ambiente.</p>
+    </div>
+</div>
+
+<!-- TIPOS DE RESÍDUO -->
+<div class="guia-conteudo">
+
+    <h2>Tipos de resíduos</h2>
+
+    <div class="guia-cards">
+
+        <div class="guia-card">
+            <h3>Recicláveis</h3>
+            <p>Papel, plástico, vidro e metal limpos e secos.</p>
+        </div>
+
+        <div class="guia-card">
+            <h3>Orgânicos</h3>
+            <p>Restos de alimentos e materiais naturais.</p>
+        </div>
+
+        <div class="guia-card">
+            <h3>Rejeitos</h3>
+            <p>Materiais que não podem ser reciclados.</p>
+        </div>
+
+        <div class="guia-card">
+            <h3>Perigosos</h3>
+            <p>Produtos químicos, tintas e baterias.</p>
+        </div>
+
+        <div class="guia-card">
+            <h3>Hospitalares</h3>
+            <p>Medicamentos, seringas e materiais de saúde.</p>
+        </div>
+
+        <div class="guia-card">
+            <h3>Eletrônicos</h3>
+            <p>Celulares, cabos, pilhas e aparelhos.</p>
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+<section id="mapa" class="page mapa">
+    <h2>Buscar ponto de entrega</h2>
+
+    <label>Resíduo:</label><br>
+    <select>
+        <option>Selecionar</option>
+        <option>Recicláveis</option>
+        <option>Orgânicos</option>
+        <option>Rejeitos</option>
+        <option>Perigosos</option>
+        <option>Hospitalar</option>
+        <option>Eletrônicos</option>
+    </select>
+
+    <div class="resultados">
+        <div class="box">
+            <strong>Pontos de coleta</strong>
+            Endereço aqui
+        </div>
+
+        <div class="box">
+            <strong>Seu local</strong>
+            Localização aqui
+        </div>
+
+        <div class="box">
+            <strong>Sobre o resíduo</strong>
+            Informação aqui
+        </div>
+    </div>
+
+    <div class="mapa-box">
+        MAPA
+    </div>
+</section>
+
+<footer>
+    Projeto acadêmico - Tecnologias Limpas 
+</footer>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="fechar" onclick="fecharModal()">✖</span>
+        <h2 id="modal-titulo"></h2>
+        <p id="modal-texto"></p>
+    </div>
+</div>
+
+<script>
+function abrirModal(tipo) {
+    const titulo = document.getElementById("modal-titulo");
+    const texto = document.getElementById("modal-texto");
+    const modal = document.getElementById("modal");
+
+    if (tipo === "uso") {
+        titulo.innerText = "Como usar o site";
+        texto.innerText = "Escolha o tipo de resíduo e veja os pontos de descarte na aba mapa.";
+    }
+
+    if (tipo === "residuo") {
+        titulo.innerText = "Tipos de resíduos";
+        texto.innerText = "Para descartar corretamente seus resíduos, é importante identificar o tipo de material. Os recicláveis incluem papéis, plásticos, vidros e metais que estejam limpos e secos. Já os orgânicos são restos de alimentos, como cascas de frutas e sobras de comida. Os resíduos eletrônicos correspondem a celulares, pilhas, baterias, cabos e aparelhos quebrados. Os hospitalares envolvem itens como medicamentos, seringas, curativos e outros materiais de saúde. Por fim, os rejeitos são aqueles que não podem ser reciclados, como papel sujo, fraldas e lixo contaminado. Fazer essa separação corretamente ajuda a reduzir os impactos ambientais e contribui para o reaproveitamento dos materiais.";
+    }
+
+    if (tipo === "pontos") {
+        titulo.innerText = "Pontos de coleta";
+        texto.innerText = "Veja os pontos de coleta no mapa";
+    }
+
+    if (tipo === "sobre") {
+        titulo.innerText = "Sobre o projeto";
+        texto.innerText = "A pegada ecológica é um modo de se medir o impacto humano no planeta. Sendo um ca´lculo da quantidade de recursos naturais necessários para sustentar a população e seu estilo de vida correspondente. A diminuição da pegada ecológica vem sido muito debatida dentro de ambientes acadêmicos voltados à sustentabilidade. Pensando em tal, o projeto de desacarte de resíduos organizou o programa para a diminuição da pegada ecológica";
+    }
+
+    modal.style.display = "block";
+}
+
+function fecharModal() {
+    document.getElementById("modal").style.display = "none";
+}
+</script>
+<script>
+const elementos = document.querySelectorAll('.animar');
+
+window.addEventListener('scroll', () => {
+    elementos.forEach(el => {
+        const topo = el.getBoundingClientRect().top;
+        if (topo < window.innerHeight - 100) {
+            el.classList.add('ativo');
+        }
+    });
+});
+</script>
+</body>
+</html>
