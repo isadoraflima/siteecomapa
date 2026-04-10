@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<p class="subtitulo">
-    Mapeamento de descarte de resíduos 
-</p>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
 <style>
 
@@ -51,25 +51,32 @@ header {
     left: -260px;
     width: 260px;
     height: 100%;
-    background: #ecfff1;
-    box-shadow: 5px 0 20px rgba(0,0,0,0.1);
+    background: rgba(236, 255, 241, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 10px 0 30px rgba(0,0,0,0.08);
     padding-top: 60px;
-    transition: 0.3s;
+    transition: 0.35s ease;
     z-index: 20;
+    border-right: 1px solid rgba(110, 219, 165, 0.18);
 }
 
 .sidebar a {
     display: block;
-    padding: 18px;
+    padding: 16px 18px;
     text-decoration: none;
     color: #2f8f5b;
-    border-radius: 12px;
-    margin: 5px;
+    border-radius: 14px;
+    margin: 8px 10px;
+    transition: all 0.3s ease;
+    font-weight: 500;
 }
 
 .sidebar a:hover {
-    background: #c9f7d8;
+    background: rgba(110, 219, 165, 0.14);
+    transform: translateX(4px);
 }
+
 
 .overlay {
     position: fixed;
@@ -113,17 +120,116 @@ body:has(#guia:target) #inicio {
 
 .hero {
     position: relative;
-    padding: 100px 80px;
-    background: linear-gradient(120deg, #dff7e4, #f4fff7);
-    text-align: left;
+    padding: 120px 80px 110px;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(110,219,165,0.18), transparent 35%),
+        radial-gradient(circle at 85% 80%, rgba(110,219,165,0.12), transparent 40%),
+        linear-gradient(135deg, #f7fff9 0%, #eefcf3 50%, #ffffff 100%);
+    overflow: hidden;
+    isolation: isolate;
+    animation: tituloGlow 1.8s ease-out;
+
 }
 
+@keyframes tituloGlow {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+        text-shadow: 0 0 0 rgba(110,219,165,0);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(0);
+        text-shadow: 0 0 30px rgba(110,219,165,0.18);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        text-shadow: 0 10px 35px rgba(110,219,165,0.10);
+    }
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 900px;
+    height: 900px;
+    top: -300px;
+    right: -200px;
+    background: radial-gradient(circle, rgba(110,219,165,0.25), transparent 70%);
+    filter: blur(90px);
+    z-index: 0;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    bottom: -250px;
+    left: -150px;
+    background: radial-gradient(circle, rgba(110,219,165,0.18), transparent 70%);
+    filter: blur(80px);
+    z-index: 0;
+}
+
+.hero-onda {
+    position: absolute;
+    right: -120px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 30% 30%, rgba(110,219,165,0.22), transparent 35%),
+        radial-gradient(circle at 70% 70%, rgba(184,242,214,0.18), transparent 40%);
+    filter: blur(30px);
+    opacity: 0.9;
+    z-index: 0;
+    animation: ondaFlutuar 9s ease-in-out infinite;
+}
+
+.hero-onda::before {
+    content: "";
+    position: absolute;
+    inset: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(110,219,165,0.18);
+    animation: ondaPulse 7s ease-in-out infinite;
+}
+
+.hero-onda::after {
+    content: "";
+    position: absolute;
+    inset: 90px;
+    border-radius: 50%;
+    border: 1px solid rgba(110,219,165,0.10);
+    animation: ondaPulse 9s ease-in-out infinite reverse;
+}
+
+@keyframes ondaFlutuar {
+    0%   { transform: translateY(-50%) translateX(0px) scale(1); }
+    50%  { transform: translateY(-52%) translateX(-12px) scale(1.03); }
+    100% { transform: translateY(-50%) translateX(0px) scale(1); }
+}
+
+@keyframes ondaPulse {
+    0%   { transform: scale(1); opacity: 0.55; }
+    50%  { transform: scale(1.06); opacity: 0.25; }
+    100% { transform: scale(1); opacity: 0.55; }
+}
+
+
 .hero h1 {
-    font-size: 64px;
+    font-size: 72px;
     font-weight: 800;
     color: #2f8f5b;
-    line-height: 1.1;
-    margin-bottom: 20px;
+    line-height: 1.02;
+    margin-bottom: 22px;
+    letter-spacing: -1.4px;
+    max-width: 700px;
+    text-shadow: 0 10px 35px rgba(110, 219, 165, 0.10);
 }
 
 .hero span {
@@ -131,25 +237,53 @@ body:has(#guia:target) #inicio {
 }
 
 .hero p {
-    font-size: 18px;
-    color: #555;
-    max-width: 500px;
-    margin-bottom: 30px;
+    font-size: 20px;
+    color: #557565;
+    max-width: 560px;
+    margin-bottom: 34px;
+    line-height: 1.8;
 }
 
 .btn-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     background: linear-gradient(90deg, #2f8f5b, #6edba5);
     color: white;
-    padding: 14px 26px;
-    border-radius: 30px;
+    padding: 15px 30px;
+    border-radius: 999px;
     text-decoration: none;
     font-weight: 600;
-    transition: 0.3s;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    box-shadow: 0 14px 28px rgba(47, 143, 91, 0.18);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-hero::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.5),
+        transparent
+    );
+    transition: 0.6s;
+}
+
+.btn-hero:hover::after {
+    left: 100%;
 }
 
 .btn-hero:hover {
-    background: #256f47;
+    transform: translateY(-3px);
+    box-shadow: 0 20px 34px rgba(47, 143, 91, 0.22);
+    background: linear-gradient(90deg, #2a7e50, #63cf9a);
 }
 
 .blob, .blob2 {
@@ -160,23 +294,44 @@ body:has(#guia:target) #inicio {
 
 .blob {
     position: absolute;
-    right: 80px;
-    top: 50px;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, #6edba5, #b8f2d6);
+    right: 60px;
+    top: 40px;
+    width: 360px;
+    height: 360px;
+    background: radial-gradient(circle, rgba(110, 219, 165, 0.42), rgba(184, 242, 214, 0.15));
     border-radius: 50%;
-    filter: blur(60px);
+    filter: blur(70px);
     z-index: 0;
 }
 
 .blob2 {
-    width: 200px;
-    height: 200px;
-    background: #b8f2d6;
-    top: 50px;
-    left: 80px;
+    position: absolute;
+    left: 60px;
+    bottom: 20px;
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(circle, rgba(184, 242, 214, 0.45), transparent 70%);
+    border-radius: 50%;
+    filter: blur(55px);
     animation: float 8s infinite ease-in-out;
+    z-index: 0;
+}
+
+.hero-label {
+    display: inline-block;
+    margin-bottom: 18px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(110, 219, 165, 0.18);
+    box-shadow: 0 8px 20px rgba(47, 143, 91, 0.06);
+    color: #2f8f5b;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    width: fit-content;
+    position: relative;
+    z-index: 1;
 }
 
 @keyframes float {
@@ -299,46 +454,93 @@ footer {
 }
 
 .guia-hero {
-    height: 400px;
-    background: url(eco.jpg) center/cover no-repeat;
+    padding: 100px 20px 80px;
+    background: linear-gradient(135deg, #eafff1 0%, #dff7e4 50%, #f4fff7 100%);
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    padding-bottom: 140px;
     position: relative;
 }
 
+<<<<<<< HEAD
+=======
+.guia-hero::after {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(110, 219, 165, 0.25), transparent);
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    filter: blur(80px);
+    z-index: 0;
+}
+
+.overlay-hero h1 span {
+    color: #6edba5;
+}
+>>>>>>> ae2a537 (Atualizei o site)
 
 .overlay-hero {
-    background: rgba(0,0,0,0.4);
-    padding: 40px;
-    border-radius: 20px;
-    text-align: center;
-    color: white;
+    background: rgba(255, 255, 255, 0.52);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding: 90px 80px;
+    border-radius: 28px;
+    color: #2f8f5b;
+    max-width: 760px;
+    box-shadow: 0 20px 50px rgba(47, 143, 91, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.55);
 }
 
 .overlay-hero h1 {
-    font-size: 48px;
-    margin-bottom: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 52px;
+    margin-bottom: 12px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    line-height: 1.1;
+    padding: 0;
 }
 
 .overlay-hero p {
     font-size: 18px;
+    color: #4f7c63;
+    line-height: 1.7;
+    margin: 0 auto 22px auto;
+    max-width: 560px;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ae2a537 (Atualizei o site)
 .guia-conteudo {
-    background: #f4fff7;
+    background: #ffffff;
     padding: 80px;
-    text-align: center;
+    margin-top: -60px;
+    border-radius: 30px 30px 0 0;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.06);
+    position: relative;
+    z-index: 2;
 }
 
 .guia-conteudo h2 {
-    font-size: 32px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 34px;
     margin-bottom: 40px;
     color: #2f8f5b;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ae2a537 (Atualizei o site)
 .guia-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -351,33 +553,42 @@ footer {
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.08);
     transition: 0.3s;
+    transition: all 0.3s ease;
 }
 
 .guia-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(47, 143, 91, 0.15);
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ae2a537 (Atualizei o site)
 .guia-card img {
     width: 60px;
     margin-bottom: 15px;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ae2a537 (Atualizei o site)
 .guia-card h3 {
     color: #2f8f5b;
     margin-bottom: 10px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
 }
 
 .guia-card p {
     color: #555;
 }
-.guia-grid {
+.guia-cards {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
 }
-
 .guia-card {
     text-align: center;
     position: relative;
@@ -389,10 +600,970 @@ footer {
     margin-bottom: 10px;
 }
 
+.guia-texto {
+    max-width: 900px;
+    margin: 100px auto 0;
+    padding: 0 20px;
+}
+
+.bloco {
+    margin-bottom: 60px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #e0f5e8;
+    max-width: 700px;
+}
+
+.bloco h3 {
+    font-size: 26px;
+    color: #2f8f5b;
+    font-weight: 700;
+    margin-bottom: 35px;
+    position: relative;
+}
+
+.bloco h3::after {
+    content: "";
+    width: 50px;
+    height: 4px;
+    background: #6edba5;
+    display: block;
+    margin-top: 8px;
+    border-radius: 10px;
+}
+
+.bloco p {
+    font-size: 17px;
+    line-height: 1.9;
+    color: #4a4a4a;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+.guia-texto {
+    letter-spacing: 0.2px;
+}
+
+.card h3 {
+    margin-bottom: 8px;
+    color: #2f8f5b;
+}
+
+.card p {
+    color: #555;
+    line-height: 1.6;
+}
+.modal-content h2 {
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    line-height: 1.7;
+}
+.guia-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    padding: 25px;
+    border: 1px solid rgba(110, 219, 165, 0.2);
+    box-shadow: 0 10px 30px rgba(47, 143, 91, 0.08);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: aparecer 0.6s ease forwards;
+}
+
+.guia-card:nth-child(1) { animation-delay: 0.1s; }
+.guia-card:nth-child(2) { animation-delay: 0.2s; }
+.guia-card:nth-child(3) { animation-delay: 0.3s; }
+.guia-card:nth-child(4) { animation-delay: 0.4s; }
+.guia-card:nth-child(5) { animation-delay: 0.5s; }
+.guia-card:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes aparecer {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.resumo {
+    margin-top: 8px;
+    color: #4f7c63;
+}
+
+.detalhe {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 10px;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+}
+.guia-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.guia-card:hover .detalhe {
+    opacity: 1;
+    max-height: 300px;
+}
+
+.guia-card:hover .detalhe {
+    opacity: 1;
+    max-height: 200px;
+}
+
+@media (max-width: 768px) {
+    .detalhe {
+        opacity: 1;
+        max-height: none;
+    }
+
+    .guia-card {
+        cursor: default;
+    }
+}
+
+.guia-card:hover {
+    transform: translateY(-6px);
+}
+
+.overlay-hero {
+    animation: fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.btn-guia {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 26px;
+    background: linear-gradient(90deg, #2f8f5b, #6edba5);
+    color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.btn-guia {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-guia::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: 0.5s;
+}
+
+.btn-guia:hover::after {
+    left: 100%;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.guia-label {
+    display: inline-block;
+    margin-bottom: 18px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(110, 219, 165, 0.14);
+    color: #2f8f5b;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+body {
+    background: radial-gradient(circle at top, #eafff1 0%, #f4fff7 40%, #ffffff 100%);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(110,219,165,0.08), transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+section, header, footer {
+    position: relative;
+    z-index: 1;
+}
+
+.hero, .info-hero, .guia-hero {
+    isolation: isolate;
+}
+
+.hero h1,
+.hero p,
+.btn-hero,
+.info-hero-box,
+.overlay-hero,
+.info-page,
+.guia-conteudo {
+    position: relative;
+    z-index: 3;
+}
+
+
+.info-page {
+    padding: 40px 20px 20px;
+    max-width: 900px;
+    margin: -35px auto 0;
+    position: relative;
+    z-index: 2;
+}
+
+.info-page::before {
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    top: 50px;
+    left: -150px;
+    background: radial-gradient(circle, rgba(110,219,165,0.12), transparent 70%);
+    filter: blur(60px);
+    z-index: 0;
+}
+
+.info-page::after {
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    bottom: 0;
+    right: -150px;
+    background: radial-gradient(circle, rgba(110,219,165,0.10), transparent 70%);
+    filter: blur(60px);
+    z-index: 0;
+}
+
+.info-titulo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #2f8f5b;
+}
+
+.info-desc {
+    color: #4f7c63;
+    margin-bottom: 30px;
+    max-width: 520px;
+}
+
+.info-page .card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border-radius: 22px;
+    padding: 20px;
+    margin: 18px 0;
+    border: 1px solid rgba(110, 219, 165, 0.2);
+    box-shadow: 0 12px 28px rgba(47, 143, 91, 0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.info-page .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 40px rgba(47, 143, 91, 0.12);
+}
+
+.card-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-topo span {
+    font-size: 22px;
+    transition: 0.3s;
+}
+
+.card-conteudo {
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    color: #5a5a5a;
+    line-height: 1.85;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: max-height 0.45s ease, opacity 0.35s ease, transform 0.35s ease, margin-top 0.35s ease;
+}
+
+.card.ativo .card-conteudo {
+    max-height: 300px;
+}
+
+.card.ativo span {
+    transform: rotate(45deg);
+}
+
+.info-page {
+    padding: 40px 20px 20px;
+    max-width: 900px;
+    margin: 20px auto 0;
+
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(
+    to right,
+    rgba(110,219,165,0.06),
+    transparent 20%,
+    transparent 80%,
+    rgba(110,219,165,0.06)
+);
+    border-radius: 30px;    
+}
+
+.info-page::before {
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    top: 50px;
+    left: -150px;
+    background: radial-gradient(circle, rgba(110,219,165,0.12), transparent 70%);
+    filter: blur(60px);
+    z-index: 0;
+}
+
+.info-page::after {
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    bottom: 0;
+    right: -150px;
+    background: radial-gradient(circle, rgba(110,219,165,0.10), transparent 70%);
+    filter: blur(60px);
+    z-index: 0;
+}
+
+.mouse-light {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(110,219,165,0.18), transparent 70%);
+    pointer-events: none;
+    filter: blur(35px);
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.info-titulo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #2f8f5b;
+}
+
+.info-desc {
+    color: #4f7c63;
+    margin-bottom: 30px;
+    max-width: 520px;
+}
+
+.info-page .card {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 22px;
+    margin: 22px 0;
+    border: 1px solid rgba(110, 219, 165, 0.22);
+    box-shadow: 0 16px 34px rgba(47, 143, 91, 0.10);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.info-page .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(110,219,165,0.08), transparent 45%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+}
+
+.info-page .card:hover::before,
+.info-page .card.ativo::before {
+    opacity: 1;
+}
+
+.info-page .card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(110,219,165,0.08));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.info-page .card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 26px 46px rgba(47, 143, 91, 0.14);
+    border-color: rgba(110, 219, 165, 0.35);
+    background: rgba(255, 255, 255, 0.96);
+}
+
+.card-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.card-topo h3 {
+    margin: 0;
+    color: #2f8f5b;
+    font-weight: 600;
+    letter-spacing: 0.15px;
+    font-size: 21px;
+}
+
+.icone-abrir {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(110, 219, 165, 0.14);
+    color: #2f8f5b;
+    font-size: 16px;
+    transition: transform 0.35s ease, background 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
+    box-shadow: inset 0 0 0 1px rgba(110, 219, 165, 0.18);
+}
+
+.card-conteudo {
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    color: #555;
+    line-height: 1.8;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: max-height 0.45s ease, opacity 0.35s ease, transform 0.35s ease, margin-top 0.35s ease;
+}
+
+.card.ativo .card-conteudo {
+    max-height: 360px;
+    margin-top: 16px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card.ativo::before {
+    opacity: 1;
+}
+
+.card.ativo .card-conteudo {
+    max-height: 320px;
+    margin-top: 14px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card.ativo .icone-abrir {
+    transform: rotate(135deg) scale(1.08);
+    background: linear-gradient(135deg, #2f8f5b, #6edba5);
+    color: white;
+    box-shadow: 0 12px 24px rgba(47, 143, 91, 0.24);
+}
+
+.info-label {
+    display: inline-block;
+    margin-bottom: 14px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(110, 219, 165, 0.14);
+    color: #2f8f5b;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.info-page .card {
+    margin: 22px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.card-conteudo {
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    color: #555;
+    line-height: 1.8;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: max-height 0.45s ease, opacity 0.35s ease, transform 0.35s ease, margin-top 0.35s ease;
+}
+
+.card.ativo .card-conteudo {
+    max-height: 360px;
+    margin-top: 16px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card.ativo .icone-abrir {
+    transform: rotate(135deg) scale(1.08);
+    background: linear-gradient(135deg, #2f8f5b, #6edba5);
+    color: white;
+    box-shadow: 0 12px 24px rgba(47, 143, 91, 0.24);
+}
+
+.info-page .card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(110,219,165,0.08));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.7;
+}
+.info-hero {
+    padding: 110px 20px 90px;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(110,219,165,0.18), transparent 35%),
+        linear-gradient(180deg, #f8fff9 0%, #f1fbf4 48%, #ffffff 100%);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.info-hero::before {
+    content: "";
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    top: -220px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(110,219,165,0.14), transparent 65%);
+    filter: blur(70px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.info-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.08), transparent 30%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.info-hero-box {
+    max-width: 760px;
+    padding: 0 10px;
+    color: #2f8f5b;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.8s ease;
+    background: none;
+}
+
+.info-label {
+    display: inline-block;
+    margin-bottom: 18px;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(110,219,165,0.18);
+    box-shadow: 0 8px 24px rgba(47,143,91,0.06);
+    color: #2f8f5b;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.info-hero-box h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 52px;
+    line-height: 1.08;
+    letter-spacing: -0.9px;
+    margin: 0 0 14px 0;
+    color: #2f8f5b;
+    text-shadow: 0 8px 30px rgba(110,219,165,0.12);
+}
+
+.info-hero-box h1 span {
+    color: #6edba5;
+}
+
+.info-hero-box p {
+    max-width: 620px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.75;
+    color: #557565;
+}
+
+@media (max-width: 768px) {
+    .info-hero {
+        padding: 90px 20px 70px;
+    }
+
+    .info-hero-box h1 {
+        font-size: 38px;
+    }
+
+    .info-hero-box p {
+        font-size: 16px;
+    }
+}
+
+#menu-toggle {
+    display: none;
+}
+
+#info .card {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: aparecerInfo 0.55s ease forwards;
+}
+
+#info .card:nth-of-type(1) { animation-delay: 0.08s; }
+#info .card:nth-of-type(2) { animation-delay: 0.16s; }
+#info .card:nth-of-type(3) { animation-delay: 0.24s; }
+#info .card:nth-of-type(4) { animation-delay: 0.32s; }
+
+@keyframes aparecerInfo {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mouse-light {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(110,219,165,0.24), transparent 70%);
+    pointer-events: none;
+    filter: blur(45px);
+    z-index: 2;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.btn-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 24px;
+    padding: 14px 30px;
+    background: linear-gradient(90deg, #2f8f5b, #6edba5);
+    color: white;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 12px 24px rgba(47, 143, 91, 0.16);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-info::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.4),
+        transparent
+    );
+    transition: 0.6s;
+}
+
+.btn-info:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 18px 32px rgba(47, 143, 91, 0.22);
+}
+
+.btn-info:hover::after {
+    left: 100%;
+}
+
+.seta {
+    display: inline-block;
+    font-size: 18px;
+    animation: setaBounce 1.4s infinite ease-in-out;
+}
+
+@keyframes setaBounce {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+    100% { transform: translateY(0); }
+}
+
+.btn-info:hover .seta {
+    animation: setaBounce 0.6s infinite ease-in-out;
+}
+
+.mapa {
+    padding: 0 0 60px;
+}
+
+.mapa-hero {
+    padding: 110px 20px 90px;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(110,219,165,0.18), transparent 35%),
+        linear-gradient(180deg, #f8fff9 0%, #f1fbf4 48%, #ffffff 100%);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.mapa-hero-box {
+    max-width: 760px;
+    padding: 0 10px;
+    color: #2f8f5b;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.8s ease;
+}
+
+.mapa-label {
+    display: inline-block;
+    margin-bottom: 18px;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(110,219,165,0.18);
+    box-shadow: 0 8px 24px rgba(47,143,91,0.06);
+    color: #2f8f5b;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.mapa-hero-box h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 52px;
+    line-height: 1.08;
+    letter-spacing: -0.9px;
+    margin: 0 0 14px 0;
+    color: #2f8f5b;
+}
+
+.mapa-hero-box h1 span {
+    color: #6edba5;
+}
+
+.mapa-hero-box p {
+    max-width: 620px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.75;
+    color: #557565;
+}
+
+.mapa-conteudo {
+    max-width: 980px;
+    margin: 20px auto 0;
+    padding: 0 20px;
+}
+
+.mapa-filtro {
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 26px;
+    padding: 24px;
+    border: 1px solid rgba(110,219,165,0.22);
+    box-shadow: 0 16px 34px rgba(47, 143, 91, 0.10);
+    margin-bottom: 28px;
+}
+
+.mapa-filtro label {
+    display: block;
+    margin-bottom: 10px;
+    color: #2f8f5b;
+    font-weight: 600;
+}
+
+.mapa-filtro select {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(110,219,165,0.2);
+    background: #f8fffa;
+    margin-bottom: 18px;
+    font-size: 15px;
+    color: #355f4a;
+}
+
+.btn-mapa {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    background: linear-gradient(90deg, #2f8f5b, #6edba5);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 12px 24px rgba(47, 143, 91, 0.16);
+    transition: all 0.3s ease;
+}
+
+.btn-mapa:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 30px rgba(47, 143, 91, 0.2);
+}
+
+.resultados {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin: 30px 0;
+}
+
+.box {
+    background: rgba(255,255,255,0.88);
+    border-radius: 22px;
+    padding: 20px;
+    border: 1px solid rgba(110,219,165,0.2);
+    box-shadow: 0 12px 28px rgba(47, 143, 91, 0.08);
+    line-height: 1.7;
+}
+
+.box strong {
+    display: block;
+    margin-bottom: 10px;
+    color: #2f8f5b;
+}
+
+.mapa-box {
+    position: relative;
+    width: 100%;
+    height: 380px;
+    border-radius: 28px;
+    overflow: hidden;
+    background:
+        linear-gradient(rgba(110,219,165,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(110,219,165,0.08) 1px, transparent 1px),
+        linear-gradient(135deg, #ecfff2, #dff7e4);
+    background-size: 40px 40px, 40px 40px, cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #2f8f5b;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0 16px 34px rgba(47, 143, 91, 0.08);
+    border: 1px solid rgba(110,219,165,0.18);
+}
+
+.pin {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: #2f8f5b;
+    border-radius: 50%;
+    box-shadow: 0 0 0 10px rgba(47,143,91,0.12);
+    animation: pulsePin 2s infinite ease-in-out;
+}
+
+.pin1 { top: 30%; left: 28%; }
+.pin2 { top: 45%; left: 58%; }
+.pin3 { top: 63%; left: 42%; }
+
+@keyframes pulsePin {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(47,143,91,0.18); }
+    70% { transform: scale(1.08); box-shadow: 0 0 0 14px rgba(47,143,91,0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(47,143,91,0); }
+}
+
+@media (max-width: 768px) {
+    .mapa-hero-box h1 {
+        font-size: 38px;
+    }
+
+    .mapa-hero-box p {
+        font-size: 16px;
+    }
+
+    .resultados {
+        grid-template-columns: 1fr;
+    }
+}
+
+#mapa-real {
+    width: 100%;
+    height: 400px;
+    border-radius: 28px;
+    overflow: hidden;
+    margin-top: 20px;
+    box-shadow: 0 16px 34px rgba(47, 143, 91, 0.08);
+    border: 1px solid rgba(110,219,165,0.18);
+}
+
 </style>
 </head>
 
 <body>
+
+ <div class="mouse-light" id="mouse-light"></div>
 
 <input type="checkbox" id="menu-toggle">
 
@@ -424,9 +1595,11 @@ footer {
         Descubra pontos de coleta em Lorena - SP e contribua para um futuro mais sustentável.
     </p>
 
-    <a href="#mapa" class="btn-hero">Acessar mapa</a>
+    <a href="#mapa" onclick="corrigirMapa()">Mapa</a>
 
     <div class="blob"></div>
+    <div class="blob2"></div>
+    <div class="hero-onda"></div>
 
 </div>
 
@@ -440,101 +1613,248 @@ footer {
 
 </section>
 
-<section id="info" class="page info-page">
-    <h2>Informações</h2>
 
-    <div class="card" onclick="abrirModal('uso')">Como usar o site?</div>
-    <div class="card" onclick="abrirModal('residuo')">Qual meu resíduo?</div>
-    <div class="card" onclick="abrirModal('pontos')">Todos os pontos de coleta</div>
-    <div class="card" onclick="abrirModal('sobre')">Sobre Green Footprint</div>
+<section id="info" class="page">
+    <div class="info-hero">
+        <div class="info-hero-box">
+            <h1>Central de <span>Informações</span></h1>
+            <p>Aprenda a utilizar a plataforma e entenda como descartar corretamente seus resíduos.</p>
+            <a href="#info" class="btn-info" onclick="abrirInfo()">
+                Explorar informações 
+             <span class="seta">↓</span>
+           </a>
+        </div>
+    </div>
+
+    <div class="info-page" id="info-conteudo">
+        <div class="card">
+            <div class="card-topo">
+                <h3>Como usar o site?</h3>
+                <span class="icone-abrir">✦</span>
+            </div>
+            <div class="card-conteudo">
+                Para utilizar o sistema, basta acessar a aba de mapa e selecionar o tipo de resíduo que deseja descartar. A plataforma exibirá os pontos de coleta disponíveis na sua região, facilitando a destinação correta dos materiais e promovendo práticas sustentáveis no dia a dia.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-topo">
+                <h3>Qual meu resíduo?</h3>
+                <span class="icone-abrir">✦</span>
+            </div>
+            <div class="card-conteudo">
+                Para descartar corretamente seus resíduos, é importante identificar o tipo de material. Os recicláveis incluem papéis, plásticos, vidros e metais que estejam limpos e secos. Os orgânicos correspondem a restos de alimentos, como cascas de frutas, verduras e sobras de comida. Já os resíduos eletrônicos envolvem celulares, pilhas, baterias, cabos e aparelhos quebrados. Os hospitalares incluem medicamentos, seringas, curativos e outros materiais de saúde. Por fim, os rejeitos são aqueles que não podem ser reciclados, como papel sujo, fraldas e lixo contaminado. Fazer essa separação corretamente ajuda a reduzir impactos ambientais e contribui para o reaproveitamento dos materiais.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-topo">
+                <h3>Todos os pontos de coleta</h3>
+                <span class="icone-abrir">✦</span>
+            </div>
+            <div class="card-conteudo">
+                A plataforma reúne informações sobre pontos de coleta que podem receber diferentes tipos de resíduos. Ao acessar a aba de mapa, o usuário pode visualizar opções de descarte e identificar locais apropriados para materiais recicláveis, eletrônicos, perigosos e outros resíduos que exigem destinação correta.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-topo">
+                <h3>Sobre Green Footprint</h3>
+                <span class="icone-abrir">✦</span>
+            </div>
+            <div class="card-conteudo">
+                A pegada ecológica é uma forma de medir o impacto humano no planeta, considerando a quantidade de recursos naturais necessária para sustentar o estilo de vida da população. A partir dessa reflexão, o projeto Green Footprint foi desenvolvido como uma proposta de conscientização ambiental, voltada à organização do descarte de resíduos e à promoção de hábitos mais sustentáveis no cotidiano.
+            </div>
+        </div>
+    </div>
 </section>
 
 <section id="guia" class="page">
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ae2a537 (Atualizei o site)
 <div class="guia-hero">
+
     <div class="overlay-hero">
-        <h1>Guia de descarte consciente</h1>
+        <p class="guia-label">Separação inteligente de resíduos</p>
+        <h1>Guia de descarte <span>consciente</span></h1>
         <p>Aprenda a separar corretamente seus resíduos e ajudar o meio ambiente.</p>
+        <a href="#guia" class="btn-guia" onclick="abrirGuia()">Explorar guia</a>
     </div>
 </div>
 
+<<<<<<< HEAD
 
 <div class="guia-conteudo">
+=======
+<div class="guia-conteudo" id="guia-conteudo">
+>>>>>>> ae2a537 (Atualizei o site)
 
     <h2>Tipos de resíduos</h2>
 
     <div class="guia-cards">
 
-        <div class="guia-card">
-            <h3>Recicláveis</h3>
-            <p>Papel, plástico, vidro e metal limpos e secos.</p>
-        </div>
+    <div class="guia-card">
 
-        <div class="guia-card">
-            <h3>Orgânicos</h3>
-            <p>Restos de alimentos e materiais naturais.</p>
+        <h3>Recicláveis</h3>
+        <p class="resumo">Materiais reutilizáveis no dia a dia.</p>
+        <div class="detalhe">
+            Incluem papel, plástico, vidro e metal, desde que estejam limpos e secos.
+            Exemplos comuns são garrafas PET, embalagens de alimentos, latas de alumínio,
+            caixas de papelão e potes de vidro. A reciclagem desses materiais reduz a
+            extração de recursos naturais e diminui o volume de resíduos nos aterros.
         </div>
+    </div>
 
-        <div class="guia-card">
-            <h3>Rejeitos</h3>
-            <p>Materiais que não podem ser reciclados.</p>
+    <div class="guia-card">
+        <h3>Orgânicos</h3>
+        <p class="resumo">Resíduos de origem natural.</p>
+        <div class="detalhe">
+            São restos de alimentos como cascas de frutas, legumes, verduras e borra de café.
+            Esses materiais podem ser reaproveitados por meio da compostagem, transformando-se
+            em adubo natural e reduzindo significativamente o lixo doméstico.
         </div>
+    </div>
 
-        <div class="guia-card">
-            <h3>Perigosos</h3>
-            <p>Produtos químicos, tintas e baterias.</p>
+    <div class="guia-card">
+        <h3>Rejeitos</h3>
+        <p class="resumo">Sem possibilidade de reciclagem.</p>
+        <div class="detalhe">
+            Incluem materiais contaminados ou sem viabilidade de reaproveitamento, como papel
+            higiênico, fraldas, absorventes e restos de alimentos misturados com outros resíduos.
+            Devem ser destinados corretamente para evitar impactos ambientais.
         </div>
+    </div>
 
-        <div class="guia-card">
-            <h3>Hospitalares</h3>
-            <p>Medicamentos, seringas e materiais de saúde.</p>
+    <div class="guia-card">
+        <h3>Perigosos</h3>
+        <p class="resumo">Podem causar danos ambientais.</p>
+        <div class="detalhe">
+            Envolvem produtos químicos, tintas, solventes, pilhas e baterias.
+            Esses materiais exigem descarte especial, pois podem contaminar o solo e a água,
+            além de representar riscos à saúde humana.
         </div>
+    </div>
 
-        <div class="guia-card">
-            <h3>Eletrônicos</h3>
-            <p>Celulares, cabos, pilhas e aparelhos.</p>
+    <div class="guia-card">
+        <h3>Hospitalares</h3>
+        <p class="resumo">Resíduos de serviços de saúde.</p>
+        <div class="detalhe">
+            Incluem medicamentos vencidos, seringas, curativos e outros materiais contaminados.
+            O descarte incorreto pode causar sérios riscos sanitários e ambientais.
         </div>
+    </div>
+
+    <div class="guia-card">
+        <h3>Eletrônicos</h3>
+        <p class="resumo">Equipamentos descartados.</p>
+        <div class="detalhe">
+            Celulares, computadores, cabos e baterias fazem parte dessa categoria.
+            Esses itens contêm metais pesados e devem ser levados a pontos de coleta específicos
+            para evitar contaminação ambiental.
+        </div>
+    </div>
+</div>
+
+<div class="guia-texto">
+
+    <div class="bloco">
+    <h3>Por que separar os resíduos corretamente?</h3>
+    <p>
+    A separação adequada dos resíduos é uma etapa fundamental para o funcionamento eficiente dos sistemas de reciclagem e gestão ambiental. Quando os materiais são descartados de forma correta, torna-se possível direcioná-los para processos específicos de reaproveitamento, reduzindo significativamente a necessidade de extração de novos recursos naturais.
+    </p>
+
+    <p>
+    Além disso, essa prática contribui para a diminuição do volume de resíduos destinados aos aterros sanitários, prolongando sua vida útil e reduzindo impactos ambientais associados, como a emissão de gases poluentes e a contaminação do solo e da água.
+    </p>
+
+    <p>
+    A separação também facilita o trabalho de cooperativas e profissionais envolvidos na coleta seletiva, promovendo inclusão social e geração de renda, ao mesmo tempo em que fortalece uma cultura de responsabilidade ambiental no cotidiano.
+    </p>
+    </div>
+
+    <div class="bloco">
+    <h3>Impactos do descarte incorreto</h3>
+    <p>
+    O descarte inadequado de resíduos pode gerar uma série de impactos ambientais e sociais de grande relevância. Materiais descartados de forma incorreta podem contaminar o solo e os recursos hídricos, comprometendo ecossistemas inteiros e afetando diretamente a saúde humana.
+    </p>
+
+    <p>
+    Resíduos como plásticos, produtos químicos e eletrônicos possuem componentes que levam anos, ou até séculos, para se decompor, liberando substâncias tóxicas ao longo do tempo. Quando descartados em locais impróprios, esses materiais podem infiltrar-se no solo ou alcançar cursos d’água, agravando problemas ambientais.
+    </p>
+
+    <p>
+    Além disso, o acúmulo de lixo em áreas urbanas contribui para o entupimento de sistemas de drenagem, favorecendo enchentes e a proliferação de doenças. Esses impactos reforçam a importância de práticas corretas de descarte no dia a dia.
+    </p>
+    </div>
+
+    <div class="bloco">
+    <h3>Como começar na prática</h3>
+    <p>
+    Adotar práticas sustentáveis no descarte de resíduos pode parecer desafiador no início, mas pequenas mudanças no cotidiano já são suficientes para gerar impactos positivos. O primeiro passo consiste em identificar e separar os resíduos em categorias básicas, como recicláveis, orgânicos e rejeitos.
+    </p>
+
+    <p>
+    A partir dessa organização inicial, é possível buscar informações sobre pontos de coleta específicos para materiais que exigem destinação especial, como resíduos eletrônicos, pilhas, baterias e medicamentos. Muitas cidades já contam com sistemas estruturados de coleta seletiva e locais apropriados para esse tipo de descarte.
+    </p>
+
+    <p>
+    Com o tempo, essas ações tornam-se parte da rotina, promovendo uma relação mais consciente com o consumo e com o meio ambiente. A mudança de hábito individual, quando somada a outras iniciativas, contribui significativamente para a construção de cidades mais sustentáveis.
+    </p>
+    </div>
 
     </div>
 
 </div>
-
 </section>
 
 <section id="mapa" class="page mapa">
-    <h2>Buscar ponto de entrega</h2>
 
-    <label>Resíduo:</label><br>
-    <select>
-        <option>Selecionar</option>
-        <option>Recicláveis</option>
-        <option>Orgânicos</option>
-        <option>Rejeitos</option>
-        <option>Perigosos</option>
-        <option>Hospitalar</option>
-        <option>Eletrônicos</option>
-    </select>
-
-    <div class="resultados">
-        <div class="box">
-            <strong>Pontos de coleta</strong>
-            Endereço aqui
-        </div>
-
-        <div class="box">
-            <strong>Seu local</strong>
-            Localização aqui
-        </div>
-
-        <div class="box">
-            <strong>Sobre o resíduo</strong>
-            Informação aqui
+    <div class="mapa-hero">
+        <div class="mapa-hero-box">
+            <h1>Encontre o <span>ponto de descarte</span></h1>
+            <p>Selecione o tipo de resíduo e visualize locais adequados em Lorena - SP.</p>
         </div>
     </div>
 
-    <div class="mapa-box">
-        MAPA
+    <div class="mapa-conteudo">
+
+        <div class="mapa-filtro">
+            <label for="residuo">Tipo de resíduo</label>
+            <select id="residuo">
+                <option>Selecionar</option>
+                <option>Recicláveis</option>
+                <option>Orgânicos</option>
+                <option>Rejeitos</option>
+                <option>Perigosos</option>
+                <option>Hospitalar</option>
+                <option>Eletrônicos</option>
+            </select>
+
+            <button class="btn-mapa" onclick="buscarResiduo()">Buscar local</button>
+        </div>
+
+        <div class="resultados">
+            <div class="box">
+                <strong>Pontos de coleta</strong>
+                <span id="ponto-coleta">Selecione um resíduo para visualizar os locais.</span>
+            </div>
+
+            <div class="box">
+                <strong>Seu local</strong>
+                <span>Lorena - SP</span>
+            </div>
+
+            <div class="box">
+                <strong>Sobre o resíduo</strong>
+                <span id="sobre-residuo">As informações aparecerão aqui após a busca.</span>
+            </div>
+        </div>
+
+       <div id="mapa-real"></div>
+
     </div>
 </section>
 
@@ -551,39 +1871,6 @@ footer {
 </div>
 
 <script>
-function abrirModal(tipo) {
-    const titulo = document.getElementById("modal-titulo");
-    const texto = document.getElementById("modal-texto");
-    const modal = document.getElementById("modal");
-
-    if (tipo === "uso") {
-        titulo.innerText = "Como usar o site";
-        texto.innerText = "Escolha o tipo de resíduo e veja os pontos de descarte na aba mapa.";
-    }
-
-    if (tipo === "residuo") {
-        titulo.innerText = "Tipos de resíduos";
-        texto.innerText = "Para descartar corretamente seus resíduos, é importante identificar o tipo de material. Os recicláveis incluem papéis, plásticos, vidros e metais que estejam limpos e secos. Já os orgânicos são restos de alimentos, como cascas de frutas e sobras de comida. Os resíduos eletrônicos correspondem a celulares, pilhas, baterias, cabos e aparelhos quebrados. Os hospitalares envolvem itens como medicamentos, seringas, curativos e outros materiais de saúde. Por fim, os rejeitos são aqueles que não podem ser reciclados, como papel sujo, fraldas e lixo contaminado. Fazer essa separação corretamente ajuda a reduzir os impactos ambientais e contribui para o reaproveitamento dos materiais.";
-    }
-
-    if (tipo === "pontos") {
-        titulo.innerText = "Pontos de coleta";
-        texto.innerText = "Veja os pontos de coleta no mapa";
-    }
-
-    if (tipo === "sobre") {
-        titulo.innerText = "Sobre o projeto";
-        texto.innerText = "A pegada ecológica é um modo de se medir o impacto humano no planeta. Sendo um ca´lculo da quantidade de recursos naturais necessários para sustentar a população e seu estilo de vida correspondente. A diminuição da pegada ecológica vem sido muito debatida dentro de ambientes acadêmicos voltados à sustentabilidade. Pensando em tal, o projeto de desacarte de resíduos organizou o programa para a diminuição da pegada ecológica";
-    }
-
-    modal.style.display = "block";
-}
-
-function fecharModal() {
-    document.getElementById("modal").style.display = "none";
-}
-</script>
-<script>
 const elementos = document.querySelectorAll('.animar');
 
 window.addEventListener('scroll', () => {
@@ -595,5 +1882,133 @@ window.addEventListener('scroll', () => {
     });
 });
 </script>
+<script>
+function abrirGuia() {
+
+    setTimeout(() => {
+        const destino = document.getElementById("guia-conteudo");
+        if (destino) {
+            destino.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+    }, 100);
+}
+</script>
+
+<script>
+document.querySelectorAll("#info .card").forEach(card => {
+    card.addEventListener("click", () => {
+        
+        
+        document.querySelectorAll("#info .card").forEach(c => {
+            if (c !== card) c.classList.remove("ativo");
+        });
+
+        card.classList.toggle("ativo");
+    });
+});
+</script>
+
+<script>
+const mouseLight = document.getElementById("mouse-light");
+
+document.addEventListener("mousemove", (e) => {
+    mouseLight.style.left = `${e.clientX}px`;
+    mouseLight.style.top = `${e.clientY}px`;
+    mouseLight.style.opacity = "1";
+});
+
+document.addEventListener("mouseleave", () => {
+    mouseLight.style.opacity = "0";
+});
+</script>
+
+<script>
+function abrirInfo() {
+    setTimeout(() => {
+        const destino = document.getElementById("info-conteudo");
+        if (destino) {
+            destino.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+    }, 100);
+}
+</script>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+function buscarResiduo() {
+    const residuo = document.getElementById("residuo").value;
+    const pontoColeta = document.getElementById("ponto-coleta");
+    const sobreResiduo = document.getElementById("sobre-residuo");
+    const tituloMapa = document.getElementById("titulo-mapa");
+
+    const dados = {
+        "Recicláveis": {
+            ponto: "Ecoponto Central, Cooperativa Verde Lorena e coleta seletiva municipal.",
+            sobre: "Materiais recicláveis incluem papel, plástico, vidro e metal limpos e secos. Esses resíduos podem retornar à cadeia produtiva por meio da reciclagem."
+        },
+        "Orgânicos": {
+            ponto: "Coleta comum domiciliar e iniciativas locais de compostagem.",
+            sobre: "Resíduos orgânicos incluem restos de alimentos, cascas de frutas, legumes e borra de café. Podem ser reaproveitados por compostagem."
+        },
+        "Rejeitos": {
+            ponto: "Coleta urbana convencional.",
+            sobre: "Rejeitos são materiais que não podem ser reciclados nem reaproveitados, como papel higiênico, fraldas e itens contaminados."
+        },
+        "Perigosos": {
+            ponto: "Pontos específicos para pilhas, baterias, tintas e materiais químicos.",
+            sobre: "Esses resíduos exigem destinação especial porque podem contaminar o solo, a água e representar riscos à saúde."
+        },
+        "Hospitalar": {
+            ponto: "Unidades de saúde, farmácias e pontos autorizados de descarte especial.",
+            sobre: "Resíduos hospitalares incluem medicamentos vencidos, seringas, curativos e outros itens com potencial contaminante."
+        },
+        "Eletrônicos": {
+            ponto: "Pontos de coleta de eletrônicos, campanhas municipais e lojas parceiras.",
+            sobre: "Resíduos eletrônicos incluem celulares, cabos, computadores e baterias. Esses materiais contêm componentes que exigem descarte adequado."
+        }
+    };
+
+    if (!dados[residuo]) {
+        pontoColeta.textContent = "Selecione um resíduo para visualizar os locais.";
+        sobreResiduo.textContent = "As informações aparecerão aqui após a busca.";
+        tituloMapa.textContent = "MAPA INTERATIVO";
+        return;
+    }
+
+    pontoColeta.textContent = dados[residuo].ponto;
+    sobreResiduo.textContent = dados[residuo].sobre;
+    tituloMapa.textContent = residuo.toUpperCase();
+}
+</script>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+const mapa = L.map('mapa-real').setView([-22.732, -45.119], 13);
+
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+}).addTo(mapa);
+</script>
+
+<script>
+const mapa = L.map('mapa-real').setView([-22.732, -45.119], 13);
+
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+}).addTo(mapa);
+</script>
+
 </body>
 </html>
+<<<<<<< HEAD
+=======
+
+>>>>>>> ae2a537 (Atualizei o site)
