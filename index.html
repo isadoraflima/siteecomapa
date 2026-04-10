@@ -26,19 +26,48 @@
     font-family: 'Inter', sans-serif;
 }
 
-body {
-    background: #f4fff7;
-    color: #355f4a;
-}
-
 header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 25px;
-    background: #dff7e4;
-    border-bottom: 3px solid #b8eec9;
+
+    padding: 16px 24px;
+
+    background: linear-gradient(135deg, #dff7e4 0%, #c9f7d8 40%, #ecfff1 100%);
+    border-bottom: 1px solid rgba(110, 219, 165, 0.2);
 }
+
+header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #6edba5, transparent);
+    opacity: 0.6;
+}
+
+#inicio,
+#info,
+#guia,
+#mapa {
+    scroll-margin-top: 90px;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(circle at top, #eafff1 0%, #f4fff7 40%, #ffffff 100%);
+    color: #355f4a;
+    cursor: default;
+}
+
 
 .menu-label {
     font-size: 26px;
@@ -454,70 +483,87 @@ footer {
 }
 
 .guia-hero {
-    padding: 100px 20px 80px;
-    background: linear-gradient(135deg, #eafff1 0%, #dff7e4 50%, #f4fff7 100%);
+    padding: 115px 20px 105px;
+    background:
+        linear-gradient(180deg, #f9fffa 0%, #eefcf3 52%, #ffffff 100%);
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     text-align: center;
-    padding-bottom: 140px;
     position: relative;
+    overflow: hidden;
+    isolation: isolate;
 }
 
-<<<<<<< HEAD
-=======
+.guia-hero::before {
+    content: "";
+    position: absolute;
+    width: 860px;
+    height: 860px;
+    top: -300px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(110, 219, 165, 0.62), transparent 68%);
+    filter: blur(95px);
+    z-index: 0;
+    pointer-events: none;
+}
+
 .guia-hero::after {
     content: "";
     position: absolute;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(110, 219, 165, 0.25), transparent);
-    top: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    filter: blur(80px);
+    width: 420px;
+    height: 420px;
+    right: 8%;
+    bottom: -120px;
+    background: radial-gradient(circle, rgba(110, 219, 165, 0.22), transparent 72%);
+    filter: blur(70px);
     z-index: 0;
+    pointer-events: none;
 }
-
-.overlay-hero h1 span {
-    color: #6edba5;
-}
->>>>>>> ae2a537 (Atualizei o site)
 
 .overlay-hero {
-    background: rgba(255, 255, 255, 0.52);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    padding: 90px 80px;
-    border-radius: 28px;
-    color: #2f8f5b;
-    max-width: 760px;
-    box-shadow: 0 20px 50px rgba(47, 143, 91, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.55);
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 780px;
+    padding: 78px 64px;
+    border-radius: 34px;
+    background: rgba(255, 255, 255, 0.36);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.58);
+    box-shadow:
+        0 24px 60px rgba(47, 143, 91, 0.10),
+        inset 0 1px 0 rgba(255,255,255,0.42);
+    animation: fadeUp 0.8s ease;
 }
 
 .overlay-hero h1 {
     font-family: 'Poppins', sans-serif;
-    font-size: 52px;
-    margin-bottom: 12px;
+    font-size: 56px;
+    line-height: 1.05;
+    letter-spacing: -1.1px;
     font-weight: 700;
-    letter-spacing: -0.8px;
-    line-height: 1.1;
-    padding: 0;
+    color: #2f8f5b;
+    margin: 0 0 16px 0;
+    text-shadow: 0 10px 30px rgba(110, 219, 165, 0.10);
+}
+
+.overlay-hero h1 span {
+    background: linear-gradient(90deg, #2f8f5b, #6edba5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .overlay-hero p {
     font-size: 18px;
-    color: #4f7c63;
-    line-height: 1.7;
-    margin: 0 auto 22px auto;
-    max-width: 560px;
+    line-height: 1.75;
+    color: #557565;
+    max-width: 580px;
+    margin: 0 auto 24px auto;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> ae2a537 (Atualizei o site)
 .guia-conteudo {
     background: #ffffff;
     padding: 80px;
@@ -537,10 +583,6 @@ footer {
     letter-spacing: 0.5px;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> ae2a537 (Atualizei o site)
 .guia-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -561,19 +603,11 @@ footer {
     box-shadow: 0 25px 50px rgba(47, 143, 91, 0.15);
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> ae2a537 (Atualizei o site)
 .guia-card img {
     width: 60px;
     margin-bottom: 15px;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> ae2a537 (Atualizei o site)
 .guia-card h3 {
     color: #2f8f5b;
     margin-bottom: 10px;
@@ -743,38 +777,40 @@ footer {
         transform: translateY(0);
     }
 }
-.btn-guia {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 12px 26px;
-    background: linear-gradient(90deg, #2f8f5b, #6edba5);
-    color: white;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.3s;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
 
 .btn-guia {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 13px 28px;
+    background: linear-gradient(90deg, #2f8f5b, #6edba5);
+    color: white;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 14px 28px rgba(47, 143, 91, 0.18);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn-guia::after {
     content: "";
     position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
+    inset: 0;
     left: -100%;
-    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
-    transition: 0.5s;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.42), transparent);
+    transition: 0.55s;
+}
+
+.btn-guia:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 34px rgba(47, 143, 91, 0.22);
 }
 
 .btn-guia:hover::after {
     left: 100%;
 }
+
 
 html {
     scroll-behavior: smooth;
@@ -782,14 +818,18 @@ html {
 
 .guia-label {
     display: inline-block;
-    margin-bottom: 18px;
-    padding: 8px 14px;
+    margin-bottom: 20px;
+    padding: 9px 16px;
     border-radius: 999px;
-    background: rgba(110, 219, 165, 0.14);
+    background: rgba(200, 252, 233, 0.62);
+    border: 1px solid rgba(110, 219, 165, 0.18);
+    box-shadow: 0 8px 24px rgba(47, 143, 91, 0.06);
     color: #2f8f5b;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.3px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 body {
@@ -829,32 +869,40 @@ section, header, footer {
 .info-page {
     padding: 40px 20px 20px;
     max-width: 900px;
-    margin: -35px auto 0;
+    margin: 20px auto 0;
     position: relative;
-    z-index: 2;
+    overflow: hidden;
+    background: linear-gradient(
+        to right,
+        rgba(110,219,165,0.04),
+        transparent 22%,
+        transparent 78%,
+        rgba(110,219,165,0.04)
+    );
+    border-radius: 30px;
 }
 
 .info-page::before {
     content: "";
     position: absolute;
-    width: 400px;
-    height: 400px;
-    top: 50px;
-    left: -150px;
-    background: radial-gradient(circle, rgba(110,219,165,0.12), transparent 70%);
-    filter: blur(60px);
+    width: 360px;
+    height: 360px;
+    top: 60px;
+    left: -130px;
+    background: radial-gradient(circle, rgba(110,219,165,0.10), transparent 30%);
+    filter: blur(65px);
     z-index: 0;
 }
 
 .info-page::after {
     content: "";
     position: absolute;
-    width: 400px;
-    height: 400px;
-    bottom: 0;
-    right: -150px;
-    background: radial-gradient(circle, rgba(110,219,165,0.10), transparent 70%);
-    filter: blur(60px);
+    width: 360px;
+    height: 360px;
+    bottom: -20px;
+    right: -130px;
+    background: radial-gradient(circle, rgba(110,219,165,0.09), transparent 30%);
+    filter: blur(65px);
     z-index: 0;
 }
 
@@ -881,6 +929,8 @@ section, header, footer {
     box-shadow: 0 12px 28px rgba(47, 143, 91, 0.08);
     transition: all 0.3s ease;
     cursor: pointer;
+    position: relative;
+    z-index: 1;
 }
 
 .info-page .card:hover {
@@ -918,46 +968,6 @@ section, header, footer {
     transform: rotate(45deg);
 }
 
-.info-page {
-    padding: 40px 20px 20px;
-    max-width: 900px;
-    margin: 20px auto 0;
-
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(
-    to right,
-    rgba(110,219,165,0.06),
-    transparent 20%,
-    transparent 80%,
-    rgba(110,219,165,0.06)
-);
-    border-radius: 30px;    
-}
-
-.info-page::before {
-    content: "";
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    top: 50px;
-    left: -150px;
-    background: radial-gradient(circle, rgba(110,219,165,0.12), transparent 70%);
-    filter: blur(60px);
-    z-index: 0;
-}
-
-.info-page::after {
-    content: "";
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    bottom: 0;
-    right: -150px;
-    background: radial-gradient(circle, rgba(110,219,165,0.10), transparent 70%);
-    filter: blur(60px);
-    z-index: 0;
-}
 
 .mouse-light {
     position: absolute;
@@ -1160,6 +1170,7 @@ section, header, footer {
     pointer-events: none;
     opacity: 0.7;
 }
+
 .info-hero {
     padding: 110px 20px 90px;
     background:
@@ -1471,10 +1482,10 @@ section, header, footer {
 }
 
 .resultados {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
 }
 
 .box {
@@ -1558,6 +1569,176 @@ section, header, footer {
     border: 1px solid rgba(110,219,165,0.18);
 }
 
+.overlay-hero h1 span {
+    background: linear-gradient(90deg, #2f8f5b, #6edba5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo-topo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #2f8f5b;
+    letter-spacing: -0.4px;
+}
+
+.topo-icones {
+    color: #2f8f5b;
+    font-size: 18px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 14px 16px;
+    }
+
+    .logo-topo {
+        font-size: 20px;
+    }
+
+    .hero,
+    .info-hero,
+    .guia-hero,
+    .mapa-hero {
+        padding: 88px 16px 68px;
+    }
+
+    .hero h1,
+    .info-hero-box h1,
+    .overlay-hero h1,
+    .mapa-hero-box h1 {
+        font-size: 36px;
+        line-height: 1.12;
+    }
+
+    .hero p,
+    .info-hero-box p,
+    .overlay-hero p,
+    .mapa-hero-box p {
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    .overlay-hero {
+        padding: 40px 24px;
+        border-radius: 22px;
+    }
+
+    .guia-conteudo,
+    .info-page,
+    .mapa-conteudo {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .guia-conteudo {
+        padding-top: 48px;
+    }
+
+    .guia-cards,
+    .resultados {
+        grid-template-columns: 1fr;
+    }
+
+    .guia-texto {
+        margin-top: 60px;
+        padding: 0 4px;
+    }
+
+    .bloco h3 {
+        font-size: 22px;
+    }
+
+    .bloco p {
+        font-size: 16px;
+        line-height: 1.8;
+        text-align: left;
+    }
+
+    .btn-hero,
+    .btn-guia,
+    .btn-info,
+    .btn-mapa {
+        width: 100%;
+        justify-content: center;
+    }
+
+    #mapa-real {
+        height: 320px;
+    }
+
+    .sidebar {
+        width: 82%;
+        left: -82%;
+    }
+}
+
+@media (max-width: 768px) {
+    .guia-hero {
+        padding: 92px 16px 76px;
+    }
+
+    .overlay-hero {
+        padding: 42px 24px;
+        border-radius: 24px;
+    }
+
+    .overlay-hero h1 {
+        font-size: 38px;
+        line-height: 1.1;
+    }
+
+    .overlay-hero p {
+        font-size: 16px;
+    }
+
+    .guia-hero::before {
+        width: 620px;
+        height: 620px;
+        top: -180px;
+    }
+}
+
+a, button, .card {
+    cursor: pointer;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+.logo-icon {
+    font-size: 22px;
+    animation: girarLeve 6s linear infinite;
+}
+
+.logo-text {
+    font-size: 20px;
+    color: #2f8f5b;
+    letter-spacing: -0.3px;
+}
+
+.logo-text span {
+    background: linear-gradient(90deg, #2f8f5b, #6edba5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@keyframes girarLeve {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(8deg); }
+    100% { transform: rotate(0deg); }
+}
+
+
 </style>
 </head>
 
@@ -1570,7 +1751,7 @@ section, header, footer {
 <div class="sidebar">
     <a href="#inicio">Início</a>
     <a href="#info">Informações</a>
-    <a href="#mapa">Mapa</a>
+    <a href="#mapa" onclick="corrigirMapa()">Mapa</a>
     <a href="#guia">Guia</a>
 </div>
 
@@ -1578,8 +1759,10 @@ section, header, footer {
 
 <header>
     <label for="menu-toggle" class="menu-label">☰</label>
-    <h2>Menu</h2>
-    <div>🔍 ♻️</div>
+    <div class="logo">
+    <span class="logo-text">Eco<span>Mapa</span></span>
+</div>
+    <div class="topo-icones">🔍 ♻️</div>
 </header>
 
 <section id="inicio" class="page">
@@ -1595,7 +1778,7 @@ section, header, footer {
         Descubra pontos de coleta em Lorena - SP e contribua para um futuro mais sustentável.
     </p>
 
-    <a href="#mapa" onclick="corrigirMapa()">Mapa</a>
+    <a href="#mapa" class="btn-hero" onclick="corrigirMapa()">Acessar mapa</a>
 
     <div class="blob"></div>
     <div class="blob2"></div>
@@ -1671,143 +1854,126 @@ section, header, footer {
 
 <section id="guia" class="page">
 
-<<<<<<< HEAD
-
-=======
->>>>>>> ae2a537 (Atualizei o site)
-<div class="guia-hero">
-
-    <div class="overlay-hero">
-        <p class="guia-label">Separação inteligente de resíduos</p>
-        <h1>Guia de descarte <span>consciente</span></h1>
-        <p>Aprenda a separar corretamente seus resíduos e ajudar o meio ambiente.</p>
-        <a href="#guia" class="btn-guia" onclick="abrirGuia()">Explorar guia</a>
-    </div>
-</div>
-
-<<<<<<< HEAD
-
-<div class="guia-conteudo">
-=======
-<div class="guia-conteudo" id="guia-conteudo">
->>>>>>> ae2a537 (Atualizei o site)
-
-    <h2>Tipos de resíduos</h2>
-
-    <div class="guia-cards">
-
-    <div class="guia-card">
-
-        <h3>Recicláveis</h3>
-        <p class="resumo">Materiais reutilizáveis no dia a dia.</p>
-        <div class="detalhe">
-            Incluem papel, plástico, vidro e metal, desde que estejam limpos e secos.
-            Exemplos comuns são garrafas PET, embalagens de alimentos, latas de alumínio,
-            caixas de papelão e potes de vidro. A reciclagem desses materiais reduz a
-            extração de recursos naturais e diminui o volume de resíduos nos aterros.
+    <div class="guia-hero">
+        <div class="overlay-hero">
+            <p class="guia-label">Separação inteligente de resíduos</p>
+            <h1>Guia de descarte <span>consciente</span></h1>
+            <p>Aprenda a separar corretamente seus resíduos e ajudar o meio ambiente.</p>
+            <a href="#guia" class="btn-guia" onclick="abrirGuia()">Explorar guia</a>
         </div>
     </div>
 
-    <div class="guia-card">
-        <h3>Orgânicos</h3>
-        <p class="resumo">Resíduos de origem natural.</p>
-        <div class="detalhe">
-            São restos de alimentos como cascas de frutas, legumes, verduras e borra de café.
-            Esses materiais podem ser reaproveitados por meio da compostagem, transformando-se
-            em adubo natural e reduzindo significativamente o lixo doméstico.
+    <div class="guia-conteudo" id="guia-conteudo">
+
+        <h2>Tipos de resíduos</h2>
+
+        <div class="guia-cards">
+
+            <div class="guia-card">
+                <h3>Recicláveis</h3>
+                <p class="resumo">Materiais reutilizáveis no dia a dia.</p>
+                <div class="detalhe">
+                    Incluem papel, plástico, vidro e metal, desde que estejam limpos e secos.
+                    Exemplos comuns são garrafas PET, embalagens de alimentos, latas de alumínio,
+                    caixas de papelão e potes de vidro. A reciclagem desses materiais reduz a
+                    extração de recursos naturais e diminui o volume de resíduos nos aterros.
+                </div>
+            </div>
+
+            <div class="guia-card">
+                <h3>Orgânicos</h3>
+                <p class="resumo">Resíduos de origem natural.</p>
+                <div class="detalhe">
+                    São restos de alimentos como cascas de frutas, legumes, verduras e borra de café.
+                    Esses materiais podem ser reaproveitados por meio da compostagem, transformando-se
+                    em adubo natural e reduzindo significativamente o lixo doméstico.
+                </div>
+            </div>
+
+            <div class="guia-card">
+                <h3>Rejeitos</h3>
+                <p class="resumo">Sem possibilidade de reciclagem.</p>
+                <div class="detalhe">
+                    Incluem materiais contaminados ou sem viabilidade de reaproveitamento, como papel
+                    higiênico, fraldas, absorventes e restos de alimentos misturados com outros resíduos.
+                    Devem ser destinados corretamente para evitar impactos ambientais.
+                </div>
+            </div>
+
+            <div class="guia-card">
+                <h3>Perigosos</h3>
+                <p class="resumo">Podem causar danos ambientais.</p>
+                <div class="detalhe">
+                    Envolvem produtos químicos, tintas, solventes, pilhas e baterias.
+                    Esses materiais exigem descarte especial, pois podem contaminar o solo e a água,
+                    além de representar riscos à saúde humana.
+                </div>
+            </div>
+
+            <div class="guia-card">
+                <h3>Hospitalares</h3>
+                <p class="resumo">Resíduos de serviços de saúde.</p>
+                <div class="detalhe">
+                    Incluem medicamentos vencidos, seringas, curativos e outros materiais contaminados.
+                    O descarte incorreto pode causar sérios riscos sanitários e ambientais.
+                </div>
+            </div>
+
+            <div class="guia-card">
+                <h3>Eletrônicos</h3>
+                <p class="resumo">Equipamentos descartados.</p>
+                <div class="detalhe">
+                    Celulares, computadores, cabos e baterias fazem parte dessa categoria.
+                    Esses itens contêm metais pesados e devem ser levados a pontos de coleta específicos
+                    para evitar contaminação ambiental.
+                </div>
+            </div>
+
+        </div>
+
+        <div class="guia-texto">
+
+            <div class="bloco">
+                <h3>Por que separar os resíduos corretamente?</h3>
+                <p>
+                    A separação adequada dos resíduos é uma etapa fundamental para o funcionamento eficiente dos sistemas de reciclagem e gestão ambiental. Quando os materiais são descartados de forma correta, torna-se possível direcioná-los para processos específicos de reaproveitamento, reduzindo significativamente a necessidade de extração de novos recursos naturais.
+                </p>
+                <p>
+                    Além disso, essa prática contribui para a diminuição do volume de resíduos destinados aos aterros sanitários, prolongando sua vida útil e reduzindo impactos ambientais associados, como a emissão de gases poluentes e a contaminação do solo e da água.
+                </p>
+                <p>
+                    A separação também facilita o trabalho de cooperativas e profissionais envolvidos na coleta seletiva, promovendo inclusão social e geração de renda, ao mesmo tempo em que fortalece uma cultura de responsabilidade ambiental no cotidiano.
+                </p>
+            </div>
+
+            <div class="bloco">
+                <h3>Impactos do descarte incorreto</h3>
+                <p>
+                    O descarte inadequado de resíduos pode gerar uma série de impactos ambientais e sociais de grande relevância. Materiais descartados de forma incorreta podem contaminar o solo e os recursos hídricos, comprometendo ecossistemas inteiros e afetando diretamente a saúde humana.
+                </p>
+                <p>
+                    Resíduos como plásticos, produtos químicos e eletrônicos possuem componentes que levam anos, ou até séculos, para se decompor, liberando substâncias tóxicas ao longo do tempo. Quando descartados em locais impróprios, esses materiais podem infiltrar-se no solo ou alcançar cursos d’água, agravando problemas ambientais.
+                </p>
+                <p>
+                    Além disso, o acúmulo de lixo em áreas urbanas contribui para o entupimento de sistemas de drenagem, favorecendo enchentes e a proliferação de doenças. Esses impactos reforçam a importância de práticas corretas de descarte no dia a dia.
+                </p>
+            </div>
+
+            <div class="bloco">
+                <h3>Como começar na prática</h3>
+                <p>
+                    Adotar práticas sustentáveis no descarte de resíduos pode parecer desafiador no início, mas pequenas mudanças no cotidiano já são suficientes para gerar impactos positivos. O primeiro passo consiste em identificar e separar os resíduos em categorias básicas, como recicláveis, orgânicos e rejeitos.
+                </p>
+                <p>
+                    A partir dessa organização inicial, é possível buscar informações sobre pontos de coleta específicos para materiais que exigem destinação especial, como resíduos eletrônicos, pilhas, baterias e medicamentos. Muitas cidades já contam com sistemas estruturados de coleta seletiva e locais apropriados para esse tipo de descarte.
+                </p>
+                <p>
+                    Com o tempo, essas ações tornam-se parte da rotina, promovendo uma relação mais consciente com o consumo e com o meio ambiente. A mudança de hábito individual, quando somada a outras iniciativas, contribui significativamente para a construção de cidades mais sustentáveis.
+                </p>
+            </div>
+
         </div>
     </div>
-
-    <div class="guia-card">
-        <h3>Rejeitos</h3>
-        <p class="resumo">Sem possibilidade de reciclagem.</p>
-        <div class="detalhe">
-            Incluem materiais contaminados ou sem viabilidade de reaproveitamento, como papel
-            higiênico, fraldas, absorventes e restos de alimentos misturados com outros resíduos.
-            Devem ser destinados corretamente para evitar impactos ambientais.
-        </div>
-    </div>
-
-    <div class="guia-card">
-        <h3>Perigosos</h3>
-        <p class="resumo">Podem causar danos ambientais.</p>
-        <div class="detalhe">
-            Envolvem produtos químicos, tintas, solventes, pilhas e baterias.
-            Esses materiais exigem descarte especial, pois podem contaminar o solo e a água,
-            além de representar riscos à saúde humana.
-        </div>
-    </div>
-
-    <div class="guia-card">
-        <h3>Hospitalares</h3>
-        <p class="resumo">Resíduos de serviços de saúde.</p>
-        <div class="detalhe">
-            Incluem medicamentos vencidos, seringas, curativos e outros materiais contaminados.
-            O descarte incorreto pode causar sérios riscos sanitários e ambientais.
-        </div>
-    </div>
-
-    <div class="guia-card">
-        <h3>Eletrônicos</h3>
-        <p class="resumo">Equipamentos descartados.</p>
-        <div class="detalhe">
-            Celulares, computadores, cabos e baterias fazem parte dessa categoria.
-            Esses itens contêm metais pesados e devem ser levados a pontos de coleta específicos
-            para evitar contaminação ambiental.
-        </div>
-    </div>
-</div>
-
-<div class="guia-texto">
-
-    <div class="bloco">
-    <h3>Por que separar os resíduos corretamente?</h3>
-    <p>
-    A separação adequada dos resíduos é uma etapa fundamental para o funcionamento eficiente dos sistemas de reciclagem e gestão ambiental. Quando os materiais são descartados de forma correta, torna-se possível direcioná-los para processos específicos de reaproveitamento, reduzindo significativamente a necessidade de extração de novos recursos naturais.
-    </p>
-
-    <p>
-    Além disso, essa prática contribui para a diminuição do volume de resíduos destinados aos aterros sanitários, prolongando sua vida útil e reduzindo impactos ambientais associados, como a emissão de gases poluentes e a contaminação do solo e da água.
-    </p>
-
-    <p>
-    A separação também facilita o trabalho de cooperativas e profissionais envolvidos na coleta seletiva, promovendo inclusão social e geração de renda, ao mesmo tempo em que fortalece uma cultura de responsabilidade ambiental no cotidiano.
-    </p>
-    </div>
-
-    <div class="bloco">
-    <h3>Impactos do descarte incorreto</h3>
-    <p>
-    O descarte inadequado de resíduos pode gerar uma série de impactos ambientais e sociais de grande relevância. Materiais descartados de forma incorreta podem contaminar o solo e os recursos hídricos, comprometendo ecossistemas inteiros e afetando diretamente a saúde humana.
-    </p>
-
-    <p>
-    Resíduos como plásticos, produtos químicos e eletrônicos possuem componentes que levam anos, ou até séculos, para se decompor, liberando substâncias tóxicas ao longo do tempo. Quando descartados em locais impróprios, esses materiais podem infiltrar-se no solo ou alcançar cursos d’água, agravando problemas ambientais.
-    </p>
-
-    <p>
-    Além disso, o acúmulo de lixo em áreas urbanas contribui para o entupimento de sistemas de drenagem, favorecendo enchentes e a proliferação de doenças. Esses impactos reforçam a importância de práticas corretas de descarte no dia a dia.
-    </p>
-    </div>
-
-    <div class="bloco">
-    <h3>Como começar na prática</h3>
-    <p>
-    Adotar práticas sustentáveis no descarte de resíduos pode parecer desafiador no início, mas pequenas mudanças no cotidiano já são suficientes para gerar impactos positivos. O primeiro passo consiste em identificar e separar os resíduos em categorias básicas, como recicláveis, orgânicos e rejeitos.
-    </p>
-
-    <p>
-    A partir dessa organização inicial, é possível buscar informações sobre pontos de coleta específicos para materiais que exigem destinação especial, como resíduos eletrônicos, pilhas, baterias e medicamentos. Muitas cidades já contam com sistemas estruturados de coleta seletiva e locais apropriados para esse tipo de descarte.
-    </p>
-
-    <p>
-    Com o tempo, essas ações tornam-se parte da rotina, promovendo uma relação mais consciente com o consumo e com o meio ambiente. A mudança de hábito individual, quando somada a outras iniciativas, contribui significativamente para a construção de cidades mais sustentáveis.
-    </p>
-    </div>
-
-    </div>
-
-</div>
 </section>
 
 <section id="mapa" class="page mapa">
@@ -1882,9 +2048,9 @@ window.addEventListener('scroll', () => {
     });
 });
 </script>
+
 <script>
 function abrirGuia() {
-
     setTimeout(() => {
         const destino = document.getElementById("guia-conteudo");
         if (destino) {
@@ -1899,8 +2065,6 @@ function abrirGuia() {
 <script>
 document.querySelectorAll("#info .card").forEach(card => {
     card.addEventListener("click", () => {
-        
-        
         document.querySelectorAll("#info .card").forEach(c => {
             if (c !== card) c.classList.remove("ativo");
         });
@@ -1937,14 +2101,11 @@ function abrirInfo() {
 }
 </script>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
 <script>
 function buscarResiduo() {
     const residuo = document.getElementById("residuo").value;
     const pontoColeta = document.getElementById("ponto-coleta");
     const sobreResiduo = document.getElementById("sobre-residuo");
-    const tituloMapa = document.getElementById("titulo-mapa");
 
     const dados = {
         "Recicláveis": {
@@ -1976,13 +2137,11 @@ function buscarResiduo() {
     if (!dados[residuo]) {
         pontoColeta.textContent = "Selecione um resíduo para visualizar os locais.";
         sobreResiduo.textContent = "As informações aparecerão aqui após a busca.";
-        tituloMapa.textContent = "MAPA INTERATIVO";
         return;
     }
 
     pontoColeta.textContent = dados[residuo].ponto;
     sobreResiduo.textContent = dados[residuo].sobre;
-    tituloMapa.textContent = residuo.toUpperCase();
 }
 </script>
 
@@ -1991,24 +2150,16 @@ function buscarResiduo() {
 <script>
 const mapa = L.map('mapa-real').setView([-22.732, -45.119], 13);
 
-
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap'
 }).addTo(mapa);
-</script>
 
-<script>
-const mapa = L.map('mapa-real').setView([-22.732, -45.119], 13);
-
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap'
-}).addTo(mapa);
+function corrigirMapa() {
+    setTimeout(() => {
+        mapa.invalidateSize();
+    }, 300);
+}
 </script>
 
 </body>
 </html>
-<<<<<<< HEAD
-=======
-
->>>>>>> ae2a537 (Atualizei o site)
